@@ -1,29 +1,33 @@
+
 <?php
-include "db_conn.php";
-$id = $_GET["id"];
-
+require "../connection.php";
+// recupere l'id de departement 
+$id=$_GET['id'];
 if (isset($_POST["submit"])) {
-  $first_name = $_POST['first_name'];
-  $last_name = $_POST['last_name'];
-  $email = $_POST['email'];
-  $gender = $_POST['gender'];
+   $admin = $_POST['admin'];
+   $name_depart = $_POST['name_depart'];
+   
+  $sql = "UPDATE `department` SET `name_depart`='$name_depart',`id_admin`=$admin WHERE id_depart =$id ";
 
-  $sql = "UPDATE `crud` SET `first_name`='$first_name',`last_name`='$last_name',`email`='$email',`gender`='$gender' WHERE id = $id";
+   $result = mysqli_query($conn, $sql);
 
-  $result = mysqli_query($conn, $sql);
-
-  if ($result) {
-    header("Location: index.php?msg=Data updated successfully");
-  } else {
-    echo "Failed: " . mysqli_error($conn);
-  }
+   if ($result) {
+      header("Location: index.php?msg=New record created successfully");
+   } else {
+      echo "Failed: " . mysqli_error($conn);
+   }
+   
 }
+$id=$_GET['id'];
+$query= "select * from department natural join administration where id_depart =$id";
+$result=mysqli_query($conn,$query);
+$row = mysqli_fetch_assoc($result);
+echo $row['name_depart'];
 
+// les listes des admins :
+$sql = "SELECT * FROM administration";
+$admins = mysqli_query($conn, $sql);
 ?>
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,53 +42,41 @@ if (isset($_POST["submit"])) {
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <title>PHP CRUD Application</title>
+  <title>menu a faire</title>
 </head>
 
 <body>
   <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #00ff5573;">
-    PHP Complete CRUD Application
+    menu a faire 
   </nav>
 
   <div class="container">
     <div class="text-center mb-4">
-      <h3>Edit User Information</h3>
+      <h3>Edit department Information</h3>
       <p class="text-muted">Click update after changing any information</p>
     </div>
 
-    <?php
-    $sql = "SELECT * FROM `crud` WHERE id = $id LIMIT 1";
-    $result = mysqli_query($conn, $sql);
-    $row = mysqli_fetch_assoc($result);
-    ?>
 
     <div class="container d-flex justify-content-center">
       <form action="" method="post" style="width:50vw; min-width:300px;">
         <div class="row mb-3">
-          <div class="col">
-            <label class="form-label">First Name:</label>
-            <input type="text" class="form-control" name="first_name" value="<?php echo $row['first_name'] ?>">
-          </div>
-
-          <div class="col">
-            <label class="form-label">Last Name:</label>
-            <input type="text" class="form-control" name="last_name" value="<?php echo $row['last_name'] ?>">
-          </div>
-        </div>
+          
 
         <div class="mb-3">
-          <label class="form-label">Email:</label>
-          <input type="email" class="form-control" name="email" value="<?php echo $row['email'] ?>">
+          <label class="form-label">Department:</label>
+          <input type="text" class="form-control" name="name_depart" value="<?php echo $row['name_depart'] ?>">
         </div>
 
         <div class="form-group mb-3">
-          <label>Gender:</label>
-          &nbsp;
-          <input type="radio" class="form-check-input" name="gender" id="male" value="male" <?php echo ($row["gender"] == 'male') ? "checked" : ""; ?>>
-          <label for="male" class="form-input-label">Male</label>
-          &nbsp;
-          <input type="radio" class="form-check-input" name="gender" id="female" value="female" <?php echo ($row["gender"] == 'female') ? "checked" : ""; ?>>
-          <label for="female" class="form-input-label">Female</label>
+              <label for="department">admin :</label>
+              <select class="form-control" id="admin" name="admin">
+              <option value="">Select an admin</option>
+                  <?php
+                  while ($row = mysqli_fetch_assoc($admins)) {
+                  ?> 
+                  <option value='<?php echo $row['id_admin'];?>'><?php echo $row["username"] ?></option>
+                  <?php }?>
+              </select>
         </div>
 
         <div>

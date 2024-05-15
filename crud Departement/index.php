@@ -37,6 +37,7 @@
       ' . $msg . '
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>';
+    unset($_GET["msg"]);
     }
     ?>
     <a href="add.php" class="btn btn-dark mb-3">Add New</a>

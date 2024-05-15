@@ -1,7 +1,9 @@
 <?php
-include "db_conn.php";
+
+require "../connection.php";
+
 $id = $_GET["id"];
-$sql = "DELETE FROM `crud` WHERE id = $id";
+$sql = "DELETE FROM `department` WHERE id_depart = $id";
 $result = mysqli_query($conn, $sql);
 
 if ($result) {
