@@ -11,8 +11,6 @@ if (isset($_POST["submit"])) {
   $id_depart = $_POST['id_depart'];
 
   $sql = "UPDATE `department` SET `name_depart`='$name_depart',`id_admin`=$admin WHERE id_depart =$id ";
-  $sql = "INSERT INTO `intern` (`first_name`, `last_name`, `bday`, `id_depart`) VALUES ('$first_name', '$last_name', '$bday', $id_depart)";
-  
   $result = mysqli_query($conn, $sql);
 
   if ($result) {
