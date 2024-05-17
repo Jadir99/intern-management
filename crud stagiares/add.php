@@ -1,4 +1,6 @@
 <?php
+require "../session.php";
+require "../is_login.php";
 require "../connection.php";
 
 if (isset($_POST["submit"])) {
@@ -23,9 +25,6 @@ $result = mysqli_query($conn, $sql);
 // var_dump($result)
 ?>
 
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -40,13 +39,12 @@ $result = mysqli_query($conn, $sql);
    <!-- Font Awesome -->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+   <link rel="stylesheet" href="../menu/menu.css" />
    <title>Menu a faire</title>
 </head>
 
 <body>
-   <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #00ff5573;">
-   Menu a faire
-   </nav>
+<?php include "../menu/index.php"; ?>
 
    <div class="container">
       <div class="text-center mb-4">
@@ -64,12 +62,12 @@ $result = mysqli_query($conn, $sql);
             </div>
 
             <div class="mb-3">
-               <label class="form-label">intern first name:</label>
+               <label class="form-label">intern last name:</label>
                <input type="text" class="form-control" name="last_name" placeholder="@example">
             </div>
 
             <div class="mb-3">
-               <label class="form-label">intern first name:</label>
+               <label class="form-label">birthday:</label>
                <input type="date" class="form-control" name="bday" >
             </div>
 

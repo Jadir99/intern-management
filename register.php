@@ -1,8 +1,7 @@
 <?php
-session_start();
+require "session.php";
 require "connection.php";
 
-include "is_login.php";
 
 if (isset($_POST["submit"])) {
     $username = $_POST['uname'];
@@ -14,14 +13,10 @@ if (isset($_POST["submit"])) {
         echo "Passwords do not match!";
     } else {
         // Protéger contre les injections SQL
-        $username = mysqli_real_escape_string($conn, $username);
-        $email = mysqli_real_escape_string($conn, $email);
-        $password = mysqli_real_escape_string($conn, $password);
 
         // Hash le mot de passe pour plus de sécurité
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO `administration` (`username`, `password`) VALUES ('$username', '$hashed_password')";
+        $sql = "INSERT INTO `administration` (`username`, `password`) VALUES ('$username', '$password')";
         $result = mysqli_query($conn, $sql);
 
         if ($result) {
@@ -41,6 +36,7 @@ if (isset($_POST["submit"])) {
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
+    
     <form action="" method="post">
         <h2>Sign Up</h2>
         <?php if (isset($_GET['error'])) { ?>

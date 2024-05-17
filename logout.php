@@ -1,5 +1,6 @@
 <?php
-session_start();
+
+require "session.php";
 require "connection.php";
 unset($_SESSION['username']);
-header(('location:login.php'));
+header(('location:/gestion des stagiares/login.php'));

@@ -1,5 +1,7 @@
 
 <?php
+require "../session.php";
+require "../is_login.php";
 require "../connection.php";
 // recupere l'id de departement 
 $id=$_GET['id'];
@@ -9,12 +11,11 @@ if (isset($_POST["submit"])) {
   $last_name = $_POST['last_name'];
   $bday = $_POST['bday'];
   $id_depart = $_POST['id_depart'];
-
-  $sql = "UPDATE `department` SET `name_depart`='$name_depart',`id_admin`=$admin WHERE id_depart =$id ";
+  $sql = "UPDATE `intern` SET `first_name`='$first_name',`last_name`='$last_name',`bday`='$bday',`id_depart`='$id_depart' WHERE id_intern ='$id' ";
   $result = mysqli_query($conn, $sql);
 
   if ($result) {
-     header("Location: index.php?msg=New record created successfully");
+     header("Location: index.php?msg=record updated successfully");
   } else {
      echo "Failed: " . mysqli_error($conn);
   }
@@ -40,14 +41,14 @@ $department = mysqli_query($conn, $sql);
 
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
+  <link rel="stylesheet" href="../menu/menu.css" />
   <title>menu a faire</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #00ff5573;">
-    menu a faire 
-  </nav>
+  
+
+<?php include "../menu/index.php"; ?>
 
   <div class="container">
     <div class="text-center mb-4">

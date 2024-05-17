@@ -1,9 +1,12 @@
 
 <?php
+require "../session.php";
+require "../is_login.php";
 require "../connection.php";
 // recupere l'id de departement 
-$id=$_GET['id'];
+
 if (isset($_POST["submit"])) {
+  $id=$_GET['id'];
    $admin = $_POST['admin'];
    $name_depart = $_POST['name_depart'];
    
@@ -22,7 +25,7 @@ $id=$_GET['id'];
 $query= "select * from department natural join administration where id_depart =$id";
 $result=mysqli_query($conn,$query);
 $row = mysqli_fetch_assoc($result);
-echo $row['name_depart'];
+
 
 // les listes des admins :
 $sql = "SELECT * FROM administration";
@@ -42,13 +45,12 @@ $admins = mysqli_query($conn, $sql);
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <title>menu a faire</title>
+  <link rel="stylesheet" href="../menu/menu.css" />
+  <title>edit departement</title>
 </head>
 
 <body>
-  <nav class="navbar navbar-light justify-content-center fs-3 mb-5" style="background-color: #00ff5573;">
-    menu a faire 
-  </nav>
+<?php include "../menu/index.php"; ?>
 
   <div class="container">
     <div class="text-center mb-4">
@@ -70,7 +72,7 @@ $admins = mysqli_query($conn, $sql);
         <div class="form-group mb-3">
               <label for="department">admin :</label>
               <select class="form-control" id="admin" name="admin">
-              <option value="">Select an admin</option>
+              <option value="<?php echo $row['id_admin'];?>"><?php echo $row["username"] ?></option>
                   <?php
                   while ($row = mysqli_fetch_assoc($admins)) {
                   ?> 

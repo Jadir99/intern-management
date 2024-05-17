@@ -2,7 +2,7 @@
 session_start(); 
 
 require "connection.php";
-require "is_login.php";
+// require "is_login.php";
 if (isset($_POST['username']) && isset($_POST['password'])) {
 
 
