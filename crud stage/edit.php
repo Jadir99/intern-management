@@ -34,7 +34,13 @@ $sql = "SELECT * FROM intern";
 $interns = mysqli_query($conn, $sql);
 // var_dump($result)
 
-$query= "select * from internship natural join  administration  natural join intern where id_intern =$id";
+$query= "SELECT * 
+FROM internship 
+NATURAL JOIN administration 
+JOIN department ON internship.id_depart = department.id_depart 
+JOIN intern ON internship.id_intern = intern.id_intern 
+WHERE internship.id_internship =$id";
+// echo $query;
 $result=mysqli_query($conn,$query);
 $stage = mysqli_fetch_assoc($result);
 

@@ -4,7 +4,13 @@ require "../session.php";
 require "../is_login.php";
     require "../connection.php";
         
-    $query= "select * from internship natural join  administration  natural join department";
+    $query= "select * from internship
+     natural join  administration  
+     join  department 
+     join intern  
+     where internship.id_intern = intern.id_intern 
+     and internship.id_depart=department.id_depart ";
+    
     $result=mysqli_query($conn,$query);
     // var_dump($result);
 ?>
@@ -49,7 +55,7 @@ require "../is_login.php";
           <th scope="col">ID de stage </th>
           <th scope="col">admin </th>
           <th scope="col">user</th>
-          <!-- <th scope="col">department name </th> -->
+          <th scope="col">department name </th>
           <th scope="col">start date </th>
           <th scope="col">end date  </th>
           <th scope="col">Action</th>
@@ -63,7 +69,7 @@ require "../is_login.php";
             <td><?php echo $row["id_internship"] ?></td>
             <td><?php echo $row["username"] ?></td>
             <td><?php echo $row["last_name"] ?></td>
-            <!-- <td><?php echo $row["name_depart"] ?></td> -->
+            <td><?php echo $row["name_depart"] ?></td>
             <td><?php echo $row["start_date"] ?></td>
             <td><?php echo $row["end_date"] ?></td>
             <td>
